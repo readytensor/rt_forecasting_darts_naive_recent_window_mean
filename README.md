@@ -1,7 +1,7 @@
 # Naive Recent Window Mean Forecaster in Darts
 
 Naive Recent Window Mean Forecaster for the Forecasting problem category as per Ready Tensor specifications.
-For a forecast window length `f`, this mean calculates the mean of the latest `f` points in history. This mean value is the forecasted value for all `f` time steps in the forecast window.
+For a forecast window length `f`, this model calculates the mean of the latest `f` points in history. This mean value is the forecasted value for all `f` time steps in the forecast window.
 
 ## Project Description
 
