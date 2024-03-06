@@ -219,12 +219,10 @@ class TimeAndMemoryTracker(object):
         tracemalloc.stop()
 
         cpu_memory = peak / (1024 * 1024)
-        cuda_peak = get_peak_memory_usage()
 
         elapsed_time = self.end_time - self.start_time
 
         self.logger.info(f"Execution time: {elapsed_time:.2f} seconds")
         self.logger.info(f"CPU Memory allocated (peak): {cpu_memory:.2f} MB")
 
-        if cuda_peak:
-            self.logger.info(f"CUDA Memory allocated (peak): {cuda_peak:.2f} MB")
+       
