@@ -2,7 +2,6 @@ import time
 import json
 import os
 import random
-import torch
 import tracemalloc
 from typing import Any, Dict, List, Tuple, Union
 
@@ -200,18 +199,6 @@ def make_serializable(obj: Any) -> Union[int, float, List[Union[int, float]], An
         return json.JSONEncoder.default(None, obj)
 
 
-def get_peak_memory_usage():
-    """
-    Returns the peak memory usage by current cuda device (in MB) if available
-    """
-    if not torch.cuda.is_available():
-        return None
-
-    current_device = torch.cuda.current_device()
-    peak_memory = torch.cuda.max_memory_allocated(current_device)
-    return peak_memory / (1024 * 1024)
-
-
 class TimeAndMemoryTracker(object):
     """
     This class serves as a context manager to track time and
@@ -224,10 +211,6 @@ class TimeAndMemoryTracker(object):
     def __enter__(self):
         tracemalloc.start()
         self.start_time = time.time()
-        if torch.cuda.is_available():
-            torch.cuda.reset_peak_memory_stats()  # Reset CUDA memory stats
-            torch.cuda.empty_cache()  # Clear CUDA cache
-
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
